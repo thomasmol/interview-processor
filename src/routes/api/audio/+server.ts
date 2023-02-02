@@ -13,7 +13,7 @@ export const POST = (async ({ request })   =>{
   /* const arrayBuffer = await file.arrayBuffer();
   const mp3 = Buffer.from(arrayBuffer).toString('base64'); */
   const modelPayload = { mp3BytesString: audio };
-  const result = await banana.run(apiKey, whisperBaseModelKey, modelPayload);
+  const result : BananaTranscriptResponse = await banana.run(apiKey, whisperBaseModelKey, modelPayload) as BananaTranscriptResponse;
   const transcript = result.modelOutputs[0].text;
 
   const chunkSize = 6000;

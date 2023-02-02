@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Button from '$lib/components/Button.svelte';
+	import Download from '$lib/icons/Download.svelte';
 	import Footer from '$lib/sections/Footer.svelte';
 	import type { PageData, ActionData } from './$types';
 
@@ -7,7 +8,7 @@
 	let files: FileList;
 	let transcript: string = '';
 	let loading: boolean = false;
-	let result: object;
+	let result: Interview = {summary: 'Lorem ', transcript: 'Ipsum'};
 
 	const submit = async () => {
 		loading = true;
@@ -31,6 +32,14 @@
 
 		loading = false;
 	};
+
+	const download = async (text : string) => {
+		const a = document.createElement('a');
+		const file = new Blob([text], {type: 'text/plain'});
+		a.href = URL.createObjectURL(file);
+		a.download = 'download.txt';
+		a.click();
+	}
 </script>
 
 <main>
@@ -68,11 +77,17 @@
 	</section>
 	{#if result}
 		<section class="container prose mt-10">
-			<h1>Summary</h1>
+			<header class="flex justify-between">
+				<h1>Summary</h1>
+				<Button styleClasses="flex h-10 items-center gap-3" onClick={() => download(result.summary)}>Download<Download/></Button>
+			</header>
 			<p class="" >{result.summary}</p>
 		</section>
 		<section class="container prose mt-10">
-			<h1>Transcript</h1>
+			<header class="flex justify-between">
+				<h1>Transcript</h1>
+				<Button styleClasses="flex h-10 items-center gap-3" onClick={() => download(result.transcript)}>Download<Download/></Button>
+			</header>
 			<p class="" >{result.transcript}</p>
 		</section>
 	{/if}

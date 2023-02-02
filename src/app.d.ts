@@ -7,3 +7,21 @@ declare namespace App {
 	// interface PageData {}
 	// interface Platform {}
 }
+
+type Interview = {
+	transcript: string;
+	summary: string;
+};
+
+type BananaTranscriptResponse = {
+	id: string;
+	message: string;
+	created: number;
+	apiVersion: string;
+	modelOutputs: [
+		{
+			text: string;
+		}
+	];
+};
+
