@@ -37,5 +37,9 @@
 		"vite": "^4.0.0",
 		"vitest": "^0.25.3"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"@banana-dev/banana-dev": "^4.0.0",
+		"openai": "^3.1.0"
+	}
 }
