@@ -39,19 +39,5 @@ export const POST = (async ({ request })   =>{
     summary += response.data.choices[0].text;
   }
 
-  console.log(result);
-  console.log(summary);
   return new Response(JSON.stringify({transcript, summary}));
 }) satisfies RequestHandler;
-
-/* {
-  id: '8e0e2a6b-4e74-47cc-8cd7-4490b201f663',
-  message: '',
-  created: 1675353762,
-  apiVersion: 'January 11, 2023',
-  modelOutputs: [
-    {
-      text: ' Ja, eerst wil ik wat van jou weten over jouw onderzoekkontest. Kontext was benieuwd wat voor onderzoek je doet en hoe dit gerealtier het is aan bijvoorbeeld nutje. Dus bij onderzoek is het veel van kochtief modelleren en we namen nemen van beslissingen. Korte van mijn leven betekent eigenlijk dat je een familiel model, wiskwintermodell, of opstand.'
-    }
-  ]
-} */

@@ -38,7 +38,6 @@
 		const audio = new Audio(URL.createObjectURL(files[0]));
 		audio.onloadedmetadata = () => {
 			audioDurationSeconds = audio.duration;
-			console.log(audioDurationSeconds);
 		};
 	}
 
