@@ -3,17 +3,19 @@ import banana from '@banana-dev/banana-dev';
 import openai from '$lib/openai';
 import {
   PRIVATE_BANANA_API_KEY,
-  PRIVATE_BANANA_WHISPER_BASE_MODEL_KEY
+  PRIVATE_BANANA_WHISPER_BASE_MODEL_KEY,
+  PRIVATE_BANANA_WHISPER_MEDIUM_MODEL_KEY
 } from '$env/static/private';
 const apiKey = PRIVATE_BANANA_API_KEY;
-const whisperBaseModelKey = PRIVATE_BANANA_WHISPER_BASE_MODEL_KEY;
+//const whisperBaseModelKey = PRIVATE_BANANA_WHISPER_BASE_MODEL_KEY;
+const whisperMediumModelKey = PRIVATE_BANANA_WHISPER_MEDIUM_MODEL_KEY;
 
 export const POST = (async ({ request })   =>{
   const {audio, prompt} = await request.json(); // must be mp3 file!
   /* const arrayBuffer = await file.arrayBuffer();
   const mp3 = Buffer.from(arrayBuffer).toString('base64'); */
   const modelPayload = { mp3BytesString: audio };
-  const result : BananaTranscriptResponse = await banana.run(apiKey, whisperBaseModelKey, modelPayload) as BananaTranscriptResponse;
+  const result : BananaTranscriptResponse = await banana.run(apiKey, whisperMediumModelKey, modelPayload) as BananaTranscriptResponse;
   const transcript = result.modelOutputs[0].text;
 
   const chunkSize = 6000;
