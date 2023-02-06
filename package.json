@@ -20,6 +20,7 @@
 		"@sveltejs/kit": "^1.0.0",
 		"@tailwindcss/forms": "^0.5.3",
 		"@tailwindcss/typography": "^0.5.8",
+		"@types/fluent-ffmpeg": "^2.1.20",
 		"@typescript-eslint/eslint-plugin": "^5.45.0",
 		"@typescript-eslint/parser": "^5.45.0",
 		"autoprefixer": "^10.4.13",
@@ -41,9 +42,11 @@
 	"type": "module",
 	"dependencies": {
 		"@banana-dev/banana-dev": "^4.0.0",
+		"@ffmpeg/ffmpeg": "^0.11.6",
 		"@sveltejs/adapter-node": "^1.1.6",
 		"dotenv": "^16.0.3",
 		"epxress": "^0.0.1-security",
+		"fluent-ffmpeg": "^2.1.2",
 		"openai": "^3.1.0"
 	}
 }
