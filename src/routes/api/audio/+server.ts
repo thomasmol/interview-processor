@@ -7,10 +7,11 @@ import {
   PRIVATE_BANANA_WHISPER_MEDIUM_MODEL_KEY
 } from '$env/static/private';
 const apiKey = PRIVATE_BANANA_API_KEY;
-//const whisperBaseModelKey = PRIVATE_BANANA_WHISPER_BASE_MODEL_KEY;
+const whisperBaseModelKey = PRIVATE_BANANA_WHISPER_BASE_MODEL_KEY;
 const whisperMediumModelKey = PRIVATE_BANANA_WHISPER_MEDIUM_MODEL_KEY;
 
 export const POST = (async ({ request })   =>{
+
   const {audio, prompt} = await request.json(); // must be mp3 file!
   /* const arrayBuffer = await file.arrayBuffer();
   const mp3 = Buffer.from(arrayBuffer).toString('base64'); */

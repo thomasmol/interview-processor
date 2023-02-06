@@ -4,6 +4,7 @@
 
 <footer class="mt-10 bg-neutral-900 py-6">
 	<div class="container flex justify-center gap-14">
+		<p class="text-white">🤲 Feedback/collaborate &rarr;</p>
 		<a
 			href="http://twitter.com/thomas_a_mol"
       target="_blank"
@@ -15,6 +16,6 @@
       target="_blank"
       rel="noreferrer"
 			class="inline-flex items-center gap-2 text-white underline hover:text-neutral-200"
-			>🤲 Collaborate <ExternalLink /></a>
+			>🗃️ LinkedIn <ExternalLink /></a>
 	</div>
 </footer>

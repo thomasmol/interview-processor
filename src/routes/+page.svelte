@@ -71,6 +71,7 @@
 				type="text"
 				bind:value={prompt}
 				class="mt-2 rounded"
+				autocomplete="off"
 				placeholder="&quot;An interview between a designer and product owner&quot;" />
 
 			{#if loading}
