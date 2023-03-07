@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Button from '$lib/components/Button.svelte';
+	import Copy from '$lib/icons/Copy.svelte';
 	import Download from '$lib/icons/Download.svelte';
 	import Loading from '$lib/icons/Loading.svelte';
 	import Footer from '$lib/sections/Footer.svelte';
@@ -8,7 +9,6 @@
 	let files: FileList;
 	let loading = false;
 	let result: Interview;
-
 	let audioDurationSeconds: number = 0;
 	let transcriptLength: number = 0;
 
@@ -33,12 +33,16 @@
 		};
 	}
 
-	const download = async (text: string) => {
+	const download = async (text: string, type: string) => {
 		const a = document.createElement('a');
 		const file = new Blob([text], { type: 'text/plain' });
 		a.href = URL.createObjectURL(file);
-		a.download = 'download.txt';
+		a.download = type + '.txt';
 		a.click();
+	};
+
+	const copyToClipboard = async (text: string) => {
+		await navigator.clipboard.writeText(text);
 	};
 </script>
 
@@ -55,7 +59,8 @@
 			on:submit|preventDefault={submit}
 			encType="multipart/form-data"
 			class="mx-auto flex max-w-lg flex-col rounded-lg border bg-neutral-100 p-8">
-			<label for="file" class="font-semibold">Select an audio file (max 25mb) ( m4a, mp3, mp4, mpeg, mpga, wav, webm)</label>
+			<label for="file" class="font-semibold"
+				>Select an audio file (max 25mb) ( m4a, mp3, mp4, mpeg, mpga, wav, webm)</label>
 			<input id="file" type="file" bind:files accept=".mp3,.m4a,.wav,.mp4" class="mt-2" required />
 			<label for="prompt" class="mt-6 font-semibold">What is the audio about?</label>
 			<input
@@ -88,19 +93,32 @@
 		<section class="container prose mt-10">
 			<header class="flex justify-between">
 				<h1>Summary</h1>
-				<Button styleClasses="flex h-10 items-center gap-3" onClick={() => download(result.summary)}
-					>Download<Download /></Button>
+				<Button
+					styleClasses="flex h-10 items-center gap-3"
+					onClick={() => copyToClipboard(result.summary)}>
+					Copy to clipboard
+					<Copy />
+				</Button>
+				<Button
+					styleClasses="flex h-10 items-center gap-3"
+					onClick={() => download(result.summary, 'summary')}>Download<Download /></Button>
 			</header>
-			<p class="">{result.summary}</p>
+			<p id="summary" class="">{result.summary}</p>
 		</section>
 		<section class="container prose mt-10">
 			<header class="flex justify-between">
 				<h1>Transcript</h1>
 				<Button
 					styleClasses="flex h-10 items-center gap-3"
-					onClick={() => download(result.transcript)}>Download<Download /></Button>
+					onClick={() => copyToClipboard(result.transcript)}>
+					Copy to clipboard
+					<Copy />
+				</Button>
+				<Button
+					styleClasses="flex h-10 items-center gap-3"
+					onClick={() => download(result.transcript, 'transcript')}>Download<Download /></Button>
 			</header>
-			<p class="">{result.transcript}</p>
+			<p id="transcript" class="">{result.transcript}</p>
 		</section>
 	{/if}
 </main>
