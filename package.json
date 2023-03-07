@@ -1,5 +1,5 @@
 {
-	"name": "sveltekit-template",
+	"name": "interview-processor",
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
@@ -47,6 +47,6 @@
 		"dotenv": "^16.0.3",
 		"epxress": "^0.0.1-security",
 		"fluent-ffmpeg": "^2.1.2",
-		"openai": "^3.1.0"
+		"openai": "^3.2.0"
 	}
 }
