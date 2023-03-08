@@ -8,23 +8,49 @@
 	let prompt: string = '';
 	let files: FileList;
 	let loading = false;
-	let result: Interview;
+	let result: Interview = {
+		summary: '',
+		transcript: ''
+	};
 	let audioDurationSeconds: number = 0;
 	let transcriptLength: number = 0;
 
 	const submit = async () => {
+			await submitAudio();
+			await submitTranscript();
+	};
+
+	const submitAudio = async () => {
 		loading = true;
 
 		const formData = new FormData();
 		formData.append('prompt', JSON.stringify(prompt));
 		formData.append('file', files[0]);
-		const response = await fetch('/api/audio', {
+		const response = await fetch('/api/transcribe', {
 			method: 'POST',
 			body: formData
 		});
-		result = await response.json();
+		const data = await response.json();
+		console.log(data);
+		result.transcript = data.transcript;
 		loading = false;
 	};
+
+	const submitTranscript = async () => {
+		loading = true;
+
+		const formData = new FormData();
+		formData.append('prompt', JSON.stringify(prompt));
+		formData.append('transcript', result.transcript);
+		const response = await fetch('/api/summarize', {
+			method: 'POST',
+			body: formData
+		});
+		const data = await response.json();
+		console.log(data);
+		result.summary = data.summary;
+		loading = false;
+	}
 
 	$: if (files && files[0]) {
 		const audio = new Audio(URL.createObjectURL(files[0]));
@@ -60,7 +86,7 @@
 			encType="multipart/form-data"
 			class="mx-auto flex max-w-lg flex-col rounded-lg border bg-neutral-100 p-8">
 			<label for="file" class="font-semibold"
-				>Select an audio file (max 25mb) ( m4a, mp3, mp4, mpeg, mpga, wav, webm)</label>
+				>Select an audio file (max 25mb) (m4a, mp3, mp4, mpeg, mpga, wav, webm)</label>
 			<input id="file" type="file" bind:files accept=".mp3,.m4a,.wav,.mp4" class="mt-2" required />
 			<label for="prompt" class="mt-6 font-semibold">What is the audio about?</label>
 			<input
@@ -89,7 +115,7 @@
 			{/if}
 		</form>
 	</section>
-	{#if result}
+	{#if result.summary.length > 0}
 		<section class="container prose mt-10">
 			<header class="flex justify-between">
 				<h1>Summary</h1>
@@ -105,6 +131,8 @@
 			</header>
 			<p id="summary" class="">{result.summary}</p>
 		</section>
+	{/if}
+	{#if result.transcript.length > 0}
 		<section class="container prose mt-10">
 			<header class="flex justify-between">
 				<h1>Transcript</h1>
