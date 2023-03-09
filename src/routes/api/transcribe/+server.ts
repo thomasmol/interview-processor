@@ -4,7 +4,7 @@ import fs from 'fs';
 import openai from '$lib/openai';
 import splitAudio from '$lib/splitaudio';
 
-export const POST = (async ({ request }) => {
+export const POST = (async ({ request, fetch }) => {
 	const data = await request.formData();
 	// m4a, mp3, mp4, mpeg, mpga, wav, webm
 	// max 25mb allowed by openai api, however, seems to not work with files larger than roughly 20mb
@@ -16,9 +16,10 @@ export const POST = (async ({ request }) => {
 	if (!formFile.type.startsWith('audio/'))
 		return new Response('File type not supported.', { status: 400 });
 
-	if (formFile.size > 20 * 1000 * 1000) {
+	if (formFile.size > 15 * 1000 * 1000) {
 		console.log('File size too large, splitting into chunks');
-		const fileName = 'full-' + formFile.name;
+		const dateTime = new Date().toISOString().replace(/:/g, '-');
+		const fileName = dateTime + '-' + formFile.name;
 		fs.writeFile(
 			'./static/audios/' + fileName,
 			Buffer.from(await formFile.arrayBuffer()),
@@ -32,21 +33,19 @@ export const POST = (async ({ request }) => {
 
 		const chunkFilePaths = await splitAudio('./static/audios/' + fileName, segmentDurationSeconds);
 		try {
-			const promise:Promise<string> = new Promise((resolve) => {
-				chunkFilePaths.forEach(async (filePath, index, array) => {
-					console.log('now transcribing: ', filePath);
-					const response = await openai.createTranscription(
-						fs.createReadStream(filePath) as any,
-						'whisper-1',
-						prompt
-					);
-					fs.unlinkSync(filePath);
-					transcript += response.data.text + ' ';
-					if (index === array.length - 1) resolve(transcript);
-				});
-			});
-			transcript = await promise;
+			for(const filePath of chunkFilePaths) {
+				console.log('Now transcribing: ', filePath);
+				const response = await openai.createTranscription(
+					fs.createReadStream(filePath) as any,
+					'whisper-1',
+					prompt
+				);
+				fs.unlinkSync(filePath);
+				console.log('Removed: ', filePath);
+				transcript += response.data.text + ' ';
+			};
 			fs.unlinkSync('./static/audios/' + fileName);
+			console.log('Removed: ', fileName);
 			return new Response(JSON.stringify({ transcript }));
 		} catch (error) {
 			console.error(error);
@@ -76,9 +75,10 @@ export const POST = (async ({ request }) => {
 		});
 		const transcribeData = await transcribeResponse.json();
 		transcript += transcribeData?.text || '';
+		return new Response(JSON.stringify({ transcript }));
 	} catch (error) {
 		console.error(error);
 		transcript = 'Sorry, something went wrong. Please try again. Error: ' + error;
+		return new Response(JSON.stringify({ transcript }));
 	}
-	return new Response(JSON.stringify({ transcript }));
 }) satisfies RequestHandler;

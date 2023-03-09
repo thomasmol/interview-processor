@@ -1,4 +1,4 @@
-import type { Handle } from '@sveltejs/kit';
+/* import type { Handle } from '@sveltejs/kit';
 
 export const handle = (async ({ event, resolve }) => {
 	const response = await resolve(event);
@@ -8,3 +8,4 @@ export const handle = (async ({ event, resolve }) => {
 	response.headers.set('Cross-Origin-Embedder-Policy', 'require-corp');
 	return response;
 }) satisfies Handle;
+ */

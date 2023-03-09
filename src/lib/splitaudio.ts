@@ -16,26 +16,28 @@ const splitAudio = async (
 
 			const fileName = inputFilePath.split('/')[inputFilePath.split('/').length - 1];
 
+			let x = 0;
 			for (let i = 0; i < durationInSeconds; i += chunkDurationSeconds) {
 				const startTime = i;
 				const outputFilePath = `./static/audios/chunks/${i}-${
 					i + chunkDurationSeconds
 				}-${fileName}.mp3`;
-				filePaths.push(outputFilePath);
 				ffmpeg(inputFilePath)
 					.setStartTime(startTime)
 					.setDuration(chunkDurationSeconds)
 					.output(outputFilePath)
 					.on('end', () => {
 						console.log(`Chunk ${outputFilePath} has been created.`);
-						if (i + chunkDurationSeconds >= durationInSeconds) {
-							resolve(filePaths);
+						filePaths.push(outputFilePath);
+						x++;
+						if (x >= durationInSeconds / chunkDurationSeconds) {
+							resolve(filePaths.sort());
 						}
 					})
-          .on('error', (err) => {
-            console.error(err);
-            reject(err);
-          })
+					.on('error', (err) => {
+						console.error(err);
+						reject(err);
+					})
 					.run();
 			}
 		});
