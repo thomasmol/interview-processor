@@ -1,7 +1,6 @@
 import type { RequestHandler } from './$types';
 import { PRIVATE_OPENAI_KEY } from '$env/static/private';
 import fs from 'fs';
-import ffmpeg from 'fluent-ffmpeg';
 import openai from '$lib/openai';
 import splitAudio from '$lib/splitaudio';
 
@@ -18,6 +17,7 @@ export const POST = (async ({ request }) => {
 		return new Response('File type not supported.', { status: 400 });
 
 	if (formFile.size > 20 * 1000 * 1000) {
+		console.log('File size too large, splitting into chunks');
 		const fileName = 'full-' + formFile.name;
 		fs.writeFile(
 			'./static/audios/' + fileName,
@@ -32,7 +32,7 @@ export const POST = (async ({ request }) => {
 
 		const chunkFilePaths = await splitAudio('./static/audios/' + fileName, segmentDurationSeconds);
 		try {
-			const promise:Promise<string> = new Promise((resolve, reject) => {
+			const promise:Promise<string> = new Promise((resolve) => {
 				chunkFilePaths.forEach(async (filePath, index, array) => {
 					console.log('now transcribing: ', filePath);
 					const response = await openai.createTranscription(
@@ -50,12 +50,17 @@ export const POST = (async ({ request }) => {
 			return new Response(JSON.stringify({ transcript }));
 		} catch (error) {
 			console.error(error);
+			fs.unlinkSync('./static/audios/' + fileName);
+			chunkFilePaths.forEach((chunkFilePath) => {
+				fs.unlinkSync(chunkFilePath);
+			});
 			transcript = 'Sorry, something went wrong. Please try again. Error: ' + error;
 			return new Response(JSON.stringify({ transcript }));
 		}
 	}
 
 	try {
+		console.log('File small enough transcribing: ', formFile.name);
 		const formData = new FormData();
 		formData.append('file', formFile, formFile.name);
 		formData.append('model', 'whisper-1');
