@@ -1,153 +1,64 @@
-<script lang="ts">
-	import Button from '$lib/components/Button.svelte';
-	import Copy from '$lib/icons/Copy.svelte';
-	import Download from '$lib/icons/Download.svelte';
-	import Loading from '$lib/icons/Loading.svelte';
+<script>
 	import Footer from '$lib/sections/Footer.svelte';
 
-	let prompt: string = '';
-	let files: FileList;
-	let loading = false;
-	let result: Interview = {
-		summary: '',
-		transcript: ''
-	};
-	let audioDurationSeconds: number = 0;
-	let transcriptLength: number = 0;
-
-	const submit = async () => {
-			await submitAudio();
-			await submitTranscript();
-	};
-
-	const submitAudio = async () => {
-		loading = true;
-
-		const formData = new FormData();
-		formData.append('prompt', JSON.stringify(prompt));
-		formData.append('file', files[0]);
-		const response = await fetch('/api/transcribe', {
-			method: 'POST',
-			body: formData
-		});
-		const data = await response.json();
-		console.log(data);
-		result.transcript = data.transcript;
-		loading = false;
-	};
-
-	const submitTranscript = async () => {
-		loading = true;
-
-		const formData = new FormData();
-		formData.append('prompt', JSON.stringify(prompt));
-		formData.append('transcript', result.transcript);
-		const response = await fetch('/api/summarize', {
-			method: 'POST',
-			body: formData
-		});
-		const data = await response.json();
-		console.log(data);
-		result.summary = data.summary;
-		loading = false;
-	}
-
-	$: if (files && files[0]) {
-		const audio = new Audio(URL.createObjectURL(files[0]));
-		audio.onloadedmetadata = () => {
-			audioDurationSeconds = audio.duration;
-		};
-	}
-
-	const download = async (text: string, type: string) => {
-		const a = document.createElement('a');
-		const file = new Blob([text], { type: 'text/plain' });
-		a.href = URL.createObjectURL(file);
-		a.download = type + '.txt';
-		a.click();
-	};
-
-	const copyToClipboard = async (text: string) => {
-		await navigator.clipboard.writeText(text);
-	};
+	const interviewTypes = ['coding', 'research', 'customer'];
 </script>
 
-<main>
-	<section class="container">
-		<header class="pt-20 pb-10 text-center">
-			<h1 class="text-4xl font-semibold text-neutral-800">Easily process interviews</h1>
-			<h2 class="mt-3 text-2xl text-neutral-700">
-				Automatically transcribe and summarize interviews
-			</h2>
-		</header>
-		<form
-			method="post"
-			on:submit|preventDefault={submit}
-			encType="multipart/form-data"
-			class="mx-auto flex max-w-lg flex-col rounded-lg border bg-neutral-100 p-8">
-			<label for="file" class="font-semibold"
-				>Select an audio file (max 25mb) (m4a, mp3, mp4, mpeg, mpga, wav, webm)</label>
-			<input id="file" type="file" bind:files accept=".mp3,.m4a,.wav,.mp4" class="mt-2" required />
-			<label for="prompt" class="mt-6 font-semibold">What is the audio about?</label>
-			<input
-				id="prompt"
-				type="text"
-				bind:value={prompt}
-				class="mt-2 rounded"
-				autocomplete="off"
-				placeholder="&quot;An interview between a designer and product owner&quot;" />
-
-			{#if loading}
-				<div class="mt-10 inline-flex justify-center gap-2">
-					<p class="">loading...</p>
-					<p class="text-neutral-800 "><Loading /></p>
-				</div>
-			{:else}
-				<Button type="submit" styleClasses="mt-4">Process</Button>
-			{/if}
-			{#if audioDurationSeconds}
-				<p class="mt-4">
-					Estimated time to process: <span class="font-semibold">{audioDurationSeconds / 4}</span> seconds
-				</p>
-				<p class="mt-2 font-semibold">
-					Do not reload/refresh this page when processing, progress will be lost.
-				</p>
-			{/if}
-		</form>
+<nav>
+	<div class="container" />
+</nav>
+<main class="h-full">
+	<section id="hero" class="py-32">
+		<div class="container">
+			<header>
+				<h1 class="mt-20 text-center text-6xl font-bold">
+					Transcribe and summarize interviews. <span class="text-lime-400">In minutes</span>
+				</h1>
+				<h2 class="mt-14 text-center text-3xl font-semibold">No hassle, just click a button 🫵</h2>
+			</header>
+			<div class="mt-12 text-center">
+				<a
+					href="/login"
+					class="rounded-lg border border-lime-300 bg-lime-400 px-5 py-3 text-lg font-bold text-lime-900 hover:border-lime-600 hover:bg-lime-600 hover:text-white"
+					>Start processing</a>
+			</div>
+		</div>
 	</section>
-	{#if result.summary.length > 0}
-		<section class="container prose mt-10">
-			<header class="flex justify-between">
-				<h1>Summary</h1>
-				<Button
-					styleClasses="flex h-10 items-center gap-3"
-					onClick={() => copyToClipboard(result.summary)}>
-					Copy to clipboard
-					<Copy />
-				</Button>
-				<Button
-					styleClasses="flex h-10 items-center gap-3"
-					onClick={() => download(result.summary, 'summary')}>Download<Download /></Button>
+	<section id="features" class="bg-gray-50 py-24">
+		<div class="container">
+			<header>
+				<h1 class="text-center text-3xl font-semibold">Fast, secure and private</h1>
 			</header>
-			<p id="summary" class="">{result.summary}</p>
-		</section>
-	{/if}
-	{#if result.transcript.length > 0}
-		<section class="container prose mt-10">
-			<header class="flex justify-between">
-				<h1>Transcript</h1>
-				<Button
-					styleClasses="flex h-10 items-center gap-3"
-					onClick={() => copyToClipboard(result.transcript)}>
-					Copy to clipboard
-					<Copy />
-				</Button>
-				<Button
-					styleClasses="flex h-10 items-center gap-3"
-					onClick={() => download(result.transcript, 'transcript')}>Download<Download /></Button>
+
+			<div class="mt-10 grid grid-cols-3 gap-10">
+				<div>
+					<h2 class="text-2xl font-semibold">⏱️ Takes minutes</h2>
+					<p class="mt-2 text-lg text-gray-800">
+						Upload your audio file and get a transcript and summary in minutes
+					</p>
+				</div>
+				<div>
+					<h2 class="text-2xl font-semibold">🔐 Encrypted data</h2>
+					<p class="mt-2 text-lg text-gray-800">
+						Your data is encrypted on our secure servers. Not even we can view your data.
+					</p>
+				</div>
+				<div>
+					<h2 class="text-2xl font-semibold">🕵️ Private</h2>
+					<p class="mt-2 text-lg text-gray-800">
+						Audio files are never saved, and processed data can only be seen by you.
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section id="pricing" class="py-24">
+		<div class="container">
+			<header>
+				<h1 class="text-center text-3xl font-semibold">Simple pricing</h1>
 			</header>
-			<p id="transcript" class="">{result.transcript}</p>
-		</section>
-	{/if}
+			<h2>It's free dummy (for now)</h2>
+		</div>
+	</section>
 </main>
 <Footer />
