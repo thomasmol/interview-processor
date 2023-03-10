@@ -1,27 +1,24 @@
-# Sveltekit template
-A sveltekit template with typescript, tailwindcss, eslint, prettier, playwright, vitetest.
-* [Sveltekit](https://kit.svelte.dev/) - Sveltekit is a framework for building web applications of all sizes, with a beautiful development experience and flexible, powerful production output.
-* [Svelte](https://svelte.dev/) - Svelte is a radical new approach to building user interfaces. Whereas traditional frameworks like React and Vue do the bulk of their work in the browser, Svelte shifts that work into a compile step that happens when you build your app.
-* [Typescript](https://www.typescriptlang.org/) - TypeScript is a typed superset of JavaScript that compiles to plain JavaScript.
-* [Tailwindcss](https://tailwindcss.com/) - A utility-first CSS framework for rapidly building custom designs.
-* [Eslint](https://eslint.org/) - ESLint is a tool for identifying and reporting on patterns found in ECMAScript/JavaScript code, with the goal of making code more consistent and avoiding bugs.
-* [Prettier](https://prettier.io/) - Prettier is an opinionated code formatter.
-* [Playwright](https://playwright.dev/) - Playwright is a Node.js library to automate Chromium, Firefox and WebKit with a single API.
-* [ViteTest](https://vitest.dev/) - ViteTest is a test runner for Vite projects.
+# Interview Processor app
+[Live version here!](https://interview-processor.up.railway.app/)
 
-Hit the ground running with a Sveltekit template that includes everything you need to build a modern web app.
+## What is this?
+This is an webapp to easily process audio files. Audio files are processed using [OpenAI's Whisper](https://platform.openai.com/docs/models/whisper) to transcribe and [GPT-3.5](https://platform.openai.com/docs/models/gpt-3-5) to summarize the transcription.
 
-## Getting started
-Hit 'use this template' button to create a new repository from this template.
-Then, install the dependencies...
+## How to use it?
+1. Upload an audio file (max 25mb) (m4a, mp3, mp4, mpeg, mpga, wav, webm)
+2. Wait for the transcription to be created
+3. Wait for the summary to be created
+4. Download/Copy the transcription and summary
 
-```bash
-cd my-svelte-app
-npm install
-```
+## Tech Stack
+- Full stack framework: [SvelteKit](https://kit.svelte.dev/)
+- Styling: [Tailwind CSS](https://tailwindcss.com/)
+- Language: [TypeScript](https://www.typescriptlang.org/)
+- Hosting: [Railway](https://railway.app/)
+- Models: [Whisper v2-large](https://platform.openai.com/docs/models/whisper) & [GPT-3.5](https://platform.openai.com/docs/models/gpt-3-5)
 
-...then start:
+## Contact
+- [My Twitter](https://twitter.com/thomas_a_mol)
+- [My Linkedin](https://www.linkedin.com/in/thomas-mol/)
 
-```bash
-npm run dev
-```
+
