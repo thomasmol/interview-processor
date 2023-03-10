@@ -1,6 +1,6 @@
 {
 	"name": "interview-processor",
-	"version": "1.0",
+	"version": "1.0.0",
 	"private": true,
 	"scripts": {
 		"dev": "vite dev --host",
@@ -32,6 +32,7 @@
 		"prettier": "^2.8.1",
 		"prettier-plugin-svelte": "^2.8.1",
 		"prettier-plugin-tailwindcss": "^0.2.1",
+		"prisma": "^4.11.0",
 		"svelte": "^3.54.0",
 		"svelte-check": "^2.9.2",
 		"tailwindcss": "^3.2.4",
@@ -42,14 +43,20 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@auth/core": "^0.5.1",
+		"@auth/sveltekit": "^0.3.0",
 		"@banana-dev/banana-dev": "^4.0.0",
 		"@ffmpeg/ffmpeg": "^0.11.6",
+		"@next-auth/prisma-adapter": "^1.0.5",
+		"@prisma/client": "^4.11.0",
 		"@sveltejs/adapter-node": "^1.1.6",
+		"@tailwindcss/line-clamp": "^0.4.2",
 		"dotenv": "^16.0.3",
 		"epxress": "^0.0.1-security",
 		"ffmpeg": "^0.0.4",
 		"fluent-ffmpeg": "^2.1.2",
 		"media-split": "^5.4.0",
+		"nodemailer": "^6.9.1",
 		"openai": "^3.2.0"
 	}
 }
