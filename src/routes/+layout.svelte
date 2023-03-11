@@ -2,6 +2,6 @@
 	import '../app.css';
 </script>
 <svelte:head>
-	<title>Interview Summarizer</title>
+	<title>AudioDigest.app</title>
 </svelte:head>
 <slot />

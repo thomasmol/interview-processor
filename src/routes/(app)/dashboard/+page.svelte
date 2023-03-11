@@ -3,7 +3,7 @@
 	import Footer from '$lib/sections/Footer.svelte';
 </script>
 
-<Navbar />
+
 <main class="h-full">
 	<section class="container">
 		<h1>Dashboard</h1>
@@ -11,4 +11,3 @@
 	</section>
 </main>
 
-<Footer />

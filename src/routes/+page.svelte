@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Footer from '$lib/sections/Footer.svelte';
 	import type { PageData, ActionData } from './$types';
-	export let data: PageData;
 
 	export let form: ActionData;
 	const interviewTypes = ['coding', 'research', 'customer'];
@@ -55,7 +54,7 @@
 <nav class="fixed w-full bg-white/60 py-2 backdrop-blur-md">
 	<div class="container">
 		<div class="flex items-center justify-between">
-			<a href="/" class="text-xl font-bold">🎙️ Interview Processor</a>
+			<a href="/" class="text-xl font-bold">🎙️ AudioDigest.app</a>
 			<div class="flex items-center gap-8">
 				<a href="#features" class="">Features</a>
 				<a href="#pricing" class="">Pricing</a>
@@ -72,10 +71,10 @@
 	<section id="hero" class="py-32">
 		<div class="container">
 			<header>
-				<h1 class="mt-20 text-center text-6xl font-bold">
-					Transcribe and summarize interviews. <span class="text-sky-600">In minutes</span>
+				<h1 class="mt-20 text-center text-6xl font-bold max-w-3xl mx-auto">
+					Transcribe and summarize any audio. <span class="text-sky-600">In minutes</span>
 				</h1>
-				<h2 class="mt-14 text-center text-3xl font-semibold">No hassle, just click a button 👈</h2>
+				<h2 class="mt-14 text-center text-3xl font-semibold">No hassle, and fully encrypted 🔒</h2>
 			</header>
 			<div class="mt-12 flex items-center justify-center gap-6 text-center">
 				<a
@@ -135,7 +134,8 @@
 						<ul class="mt-6 space-y-3 text-left">
 							<li>✅ Transcribe audio</li>
 							<li>✅ Summarize transcription</li>
-							<li>☑️ 1 audio/day</li>
+							<li>☑️ 4 audio/month</li>
+							<li>☑️ Transcripts or summaries are  not saved</li>
 						</ul>
 					</div>
 					<a
@@ -154,7 +154,7 @@
 						<ul class="mt-6 space-y-3 text-left">
 							<li>✅ Transcribe audio</li>
 							<li>✅ Summarize transcription</li>
-							<li>✅ <strong>15</strong> audios per month</li>
+							<li>✅ <strong>16</strong> audios per month</li>
 							<li>✅ Save transcriptions</li>
 							<li>✅ Save summaries</li>
 						</ul>

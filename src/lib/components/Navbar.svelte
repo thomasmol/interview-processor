@@ -12,8 +12,8 @@
 			</a>
 		</div>
 		<div class="space-x-4">
-			<a href="/interviews" class="">All Interviews</a>
-			<a href="/interviews/create">New interview</a>
+			<a href="/audios" class="">All audios</a>
+			<a href="/audios/create">New audio</a>
 		</div>
 		<div class="links">
 			<a href="/profile">{$page.data.session?.user?.email}</a>

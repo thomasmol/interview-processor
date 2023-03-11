@@ -7,7 +7,6 @@
 
 
 </script>
-<Navbar />
 <main class="h-full">
 <section class="container">
   <header class="mt-10 mb-5">
@@ -19,4 +18,3 @@
   <p class="mt-4">{data.audio.transcript}</p>
 </section>
 </main>
-<Footer />

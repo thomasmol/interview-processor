@@ -71,13 +71,24 @@
 		await navigator.clipboard.writeText(text);
 	};
 </script>
-
+<nav class="fixed w-full bg-white/60 py-2 backdrop-blur-md">
+	<div class="container">
+		<div class="flex items-center justify-between">
+			<a href="/" class="text-xl font-bold">🎙️ AudioDigest.app</a>
+			<div class="flex items-center gap-8">
+				<a href="/login" class="">Login</a>
+				<a href="/login" class="rounded-lg bg-sky-600 px-4 py-2 font-bold text-white"
+					>Get Started</a>
+			</div>
+		</div>
+	</div>
+</nav>
 <main>
 	<section class="container">
 		<header class="pt-20 pb-10 text-center">
-			<h1 class="text-4xl font-semibold text-neutral-800">Easily process interviews</h1>
+			<h1 class="text-4xl font-semibold text-neutral-800">AudioDigest Demo</h1>
 			<h2 class="mt-3 text-2xl text-neutral-700">
-				Automatically transcribe and summarize interviews
+				Automatically transcribe and summarize any audio
 			</h2>
 		</header>
 		<form

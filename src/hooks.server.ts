@@ -8,8 +8,8 @@ import { EMAIL_SERVER, EMAIL_FROM } from '$env/static/private';
 
 
 const authorization = (async ({ event, resolve }) => {
-	const unprotectedRoutes = ['/login', '/demo', '/'];
-	const specialRoutes = ['/api/transcribe', '/api/summarize'];
+	const unprotectedRoutes = ['/login', '/demo'];
+	const specialRoutes = ['/api/transcribe', '/api/summarize', '/'];
 	// Protect any routes under unprotectedRoutes
 	const session = await event.locals.getSession();
 	if (!unprotectedRoutes.includes(event.url.pathname)) {

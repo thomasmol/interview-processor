@@ -1,15 +1,12 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import { invalidateAll } from '$app/navigation';
-	import Navbar from '$lib/components/Navbar.svelte';
-	import Footer from '$lib/sections/Footer.svelte';
 
 	export let data: PageData;
 	//date format
 	const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
 </script>
 
-<Navbar />
 <main class="h-full">
 	<section class="container">
     <header class="mt-10 mb-5">
@@ -52,4 +49,3 @@
 		</div>
 	</section>
 </main>
-<Footer />

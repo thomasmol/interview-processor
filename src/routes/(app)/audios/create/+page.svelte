@@ -93,7 +93,6 @@
 		await navigator.clipboard.writeText(text);
 	};
 </script>
-<Navbar/>
 <main class="h-full">
 	<section class="container">
     <header class="mt-10 mb-4">
@@ -169,4 +168,3 @@
 		</section>
 	{/if}
 </main>
-<Footer />
