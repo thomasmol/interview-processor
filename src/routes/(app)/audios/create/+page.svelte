@@ -1,10 +1,10 @@
 <script lang="ts">
 	import Button from '$lib/components/Button.svelte';
-	import Navbar from '$lib/components/Navbar.svelte';
 	import Copy from '$lib/icons/Copy.svelte';
 	import Download from '$lib/icons/Download.svelte';
 	import Loading from '$lib/icons/Loading.svelte';
-	import Footer from '$lib/sections/Footer.svelte';
+	import { Fileupload, Label, Input, Helper, Dropzone } from 'flowbite-svelte'
+
 
 	let prompt: string = '';
 	let files: FileList;
@@ -96,23 +96,27 @@
 <main class="h-full">
 	<section class="container">
     <header class="mt-10 mb-4">
-      <h1 class="text-center text-xl font-semibold">Start processing a new interview</h1>
+      <h1 class="text-center text-xl font-semibold">Start processing an audio file</h1>
     </header>
 		<form
 			method="post"
 			on:submit|preventDefault={submit}
 			encType="multipart/form-data"
-			class="mx-auto flex  flex-col rounded-lg border bg-neutral-100 p-8">
-			<label for="file" class="font-semibold"
-				>Select an audio file (max 25mb) (m4a, mp3, mp4, mpeg, mpga, wav, webm)</label>
-			<input id="file" type="file" bind:files accept=".mp3,.m4a,.wav,.mp4" class="mt-2" required />
-			<label for="prompt" class="mt-6 font-semibold">What is the audio about?</label>
-			<input
+			class="mx-auto flex  flex-col rounded-lg border bg-gray-100 p-8">
+			<Label for="with_helper" class="pb-2 text-xl font-semibold">Upload an audio file</Label>
+			<Dropzone id='dropzone' files={files} accept=".m4a,.mp3,.mp4,.mpeg,.mpga,.wav,.webm">
+				<svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+				<p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop an audio file</p>
+				<p class="text-xs text-gray-500 dark:text-gray-400">m4a, mp3, mp4, mpeg, mpga, wav or webm (MAX. 50mb)</p>
+			</Dropzone>
+			<Label for="prompt" class="mt-6">What is the audio about?</Label>
+			<Input
 				id="prompt"
 				type="text"
-				bind:value={prompt}
+				value={prompt}
 				class="mt-2 rounded"
 				autocomplete="off"
+				required
 				placeholder="&quot;An interview between a designer and product owner&quot;" />
 
 			{#if loading}
@@ -121,7 +125,7 @@
 					<p class="text-neutral-800 "><Loading /></p>
 				</div>
 			{:else}
-				<Button type="submit" styleClasses="mt-4">Process</Button>
+				<Button type="submit" styleClasses="mt-4 bg-sky-600">Process</Button>
 			{/if}
 			{#if audioDurationSeconds}
 				<p class="mt-4">

@@ -8,5 +8,7 @@
 	<title>AudioDigest | App</title>
 </svelte:head>
 <Navbar/>
-<slot />
+<main class="bg-gray-50 h-full">
+	<slot />
+</main>
 <Footer/>
