@@ -4,7 +4,7 @@
 	const version = '1.0';
 </script>
 
-<footer class="mt-10 bg-neutral-900 py-6">
+<footer class="mt-10 bg-neutral-900 py-6 bottom-0 ">
 	<div class="container flex flex-wrap justify-center gap-14">
 		<p class="text-neutral-400">
 			&copy; {year} <a href="https://thomasmol.com" target="_blank" rel="noreferrer">Thomas Mol</a>
