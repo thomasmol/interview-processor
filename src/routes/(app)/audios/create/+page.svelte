@@ -1,10 +1,9 @@
 <script lang="ts">
-	import Button from '$lib/components/Button.svelte';
 	import Copy from '$lib/icons/Copy.svelte';
 	import Download from '$lib/icons/Download.svelte';
 	import Loading from '$lib/icons/Loading.svelte';
-	import { Fileupload, Label, Input, Helper, Dropzone } from 'flowbite-svelte'
-
+	import Upload from '$lib/icons/Upload.svelte';
+	import { Fileupload, Label, Input, Helper, Dropzone, Button } from 'flowbite-svelte';
 
 	let prompt: string = '';
 	let files: FileList;
@@ -13,14 +12,14 @@
 		summary: '',
 		transcript: ''
 	};
-	let audioDurationSeconds: number = 0;
+	let audioDurationMinutes: number = 0;
 	let transcriptLength: number = 0;
 
 	const submit = async () => {
-			await submitAudio();
-			await submitTranscript();
+		await submitAudio();
+		await submitTranscript();
 
-			try{
+		try {
 			const response = await fetch('/api/audios', {
 				method: 'POST',
 				headers: {
@@ -33,9 +32,9 @@
 					transcript: result.transcript,
 					audioDurationSeconds: 0
 				})
-			})
-			}catch(e){
-				console.log(e);
+			});
+		} catch (e) {
+			console.log(e);
 		}
 	};
 
@@ -52,8 +51,6 @@
 		const data = await response.json();
 		console.log(data);
 		result.transcript = data.transcript;
-
-
 
 		loading = false;
 	};
@@ -72,12 +69,12 @@
 		console.log(data);
 		result.summary = data.summary;
 		loading = false;
-	}
+	};
 
 	$: if (files && files[0]) {
 		const audio = new Audio(URL.createObjectURL(files[0]));
 		audio.onloadedmetadata = () => {
-			audioDurationSeconds = audio.duration;
+			audioDurationMinutes = Math.round(audio.duration / 4 / 60);
 		};
 	}
 
@@ -93,22 +90,43 @@
 		await navigator.clipboard.writeText(text);
 	};
 </script>
+
 <main class="h-full">
 	<section class="container">
-    <header class="mt-10 mb-4">
-      <h1 class="text-center text-xl font-semibold">Start processing an audio file</h1>
-    </header>
+		<header class="mt-10 mb-4">
+			<h1 class="text-center text-xl font-semibold">Start processing an audio file</h1>
+		</header>
 		<form
 			method="post"
 			on:submit|preventDefault={submit}
 			encType="multipart/form-data"
-			class="mx-auto flex  flex-col rounded-lg border bg-gray-100 p-8">
-			<Label for="with_helper" class="pb-2 text-xl font-semibold">Upload an audio file</Label>
-			<Dropzone id='dropzone' files={files} accept=".m4a,.mp3,.mp4,.mpeg,.mpga,.wav,.webm">
-				<svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-				<p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop an audio file</p>
-				<p class="text-xs text-gray-500 dark:text-gray-400">m4a, mp3, mp4, mpeg, mpga, wav or webm (MAX. 50mb)</p>
-			</Dropzone>
+			class="mx-auto flex max-w-3xl flex-col rounded-lg border bg-gray-100 p-8">
+			<Label for="dropzone-file" class="pb-2 text-xl font-semibold">Upload an audio file</Label>
+			<div class="flex w-full items-center justify-center">
+				<label
+					for="dropzone-file"
+					class="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100">
+					<div class="flex flex-col items-center justify-center pt-5 pb-6">
+						<span class="p-3 text-3xl text-gray-600">
+							<Upload />
+						</span>
+						{#if files && files[0]}
+							<p class="mb-2 text-lg text-sky-700">
+								<span class="font-semibold">{files[0].name}</span>
+							</p>
+						{:else}
+							<p class="mb-2 text-lg">-</p>
+						{/if}
+						<p class="mb-2 text-sm text-gray-500">
+							<span class="font-semibold">Click to upload</span> or drag and drop an audio file
+						</p>
+						<p class="text-xs text-gray-500">
+							m4a, mp3, mp4, mpeg, mpga, wav or webm (MAX. 50mb)
+						</p>
+					</div>
+					<input id="dropzone-file" type="file" class="hidden" bind:files />
+				</label>
+			</div>
 			<Label for="prompt" class="mt-6">What is the audio about?</Label>
 			<Input
 				id="prompt"
@@ -122,14 +140,14 @@
 			{#if loading}
 				<div class="mt-10 inline-flex justify-center gap-2">
 					<p class="">loading...</p>
-					<p class="text-neutral-800 "><Loading /></p>
+					<p class="text-neutral-800"><Loading /></p>
 				</div>
 			{:else}
-				<Button type="submit" styleClasses="mt-4 bg-sky-600">Process</Button>
+				<Button color="blue" type="submit">Process</Button>
 			{/if}
-			{#if audioDurationSeconds}
+			{#if audioDurationMinutes}
 				<p class="mt-4">
-					Estimated time to process: <span class="font-semibold">{audioDurationSeconds / 4}</span> seconds
+					Estimated time to process: <span class="font-semibold">{audioDurationMinutes}</span> minutes
 				</p>
 				<p class="mt-2 font-semibold">
 					Do not reload/refresh this page when processing, progress will be lost.

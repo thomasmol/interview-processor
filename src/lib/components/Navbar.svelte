@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { signOut } from '@auth/sveltekit/client';
+	import Profile from '$lib/icons/Profile.svelte';
 
 </script>
 
@@ -12,8 +12,7 @@
 			</a>
 		</div>
 		<div class="links">
-			<a href="/profile">{$page.data.session?.user?.email}</a>
-      <button on:click={() => signOut()}>Logout</button>
+			<a href="/profile" class="flex items-center gap-2">{$page.data.session?.user?.email} <Profile/></a>
 		</div>
 	</div>
 </nav>

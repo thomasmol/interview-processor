@@ -48,7 +48,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  transcripts   Audio[]
+  audios        Audio[]
 
   @@map("users")
 }

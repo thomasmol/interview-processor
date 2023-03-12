@@ -71,7 +71,7 @@
 	<section id="hero" class="py-32">
 		<div class="container">
 			<header>
-				<h1 class="mt-20 text-center text-6xl font-bold max-w-3xl mx-auto">
+				<h1 class="mx-auto mt-20 max-w-3xl text-center text-6xl font-bold">
 					Transcribe and summarize any audio. <span class="text-sky-600">In minutes</span>
 				</h1>
 				<h2 class="mt-14 text-center text-3xl font-semibold">No hassle, and fully encrypted 🔒</h2>
@@ -122,7 +122,7 @@
 			<header>
 				<h1 class="text-center text-3xl font-semibold">Simple pricing</h1>
 			</header>
-			<div class="mt-16 grid gap-x-10 gap-y-5 md:grid-cols-3">
+			<div class="mx-auto mt-16 grid max-w-2xl gap-x-10 gap-y-5 md:grid-cols-2">
 				<div class="flex flex-col justify-between rounded-lg border bg-gray-50 p-5 text-center">
 					<div>
 						<h2 class="text-2xl font-semibold ">Free tier</h2>
@@ -134,8 +134,9 @@
 						<ul class="mt-6 space-y-3 text-left">
 							<li>✅ Transcribe audio</li>
 							<li>✅ Summarize transcription</li>
-							<li>☑️ 4 audio/month</li>
-							<li>☑️ Transcripts or summaries are  not saved</li>
+							<li>☑️ 10 audios per month</li>
+							<li>❌ Transcripts or summaries are not saved</li>
+							<li>❌ Data is not encrypted</li>
 						</ul>
 					</div>
 					<a
@@ -143,27 +144,7 @@
 						class="mt-10 w-full rounded-lg border border-sky-600 bg-sky-600 px-5 py-2 text-lg font-bold text-white hover:border-sky-600 hover:bg-sky-600"
 						>Try it out</a>
 				</div>
-				<div class="flex flex-col justify-between rounded-lg border bg-gray-50 p-5 text-center">
-					<div>
-						<h2 class="text-2xl font-semibold ">Personal</h2>
-						<p class="mt-2  text-gray-600">For personal or small projects</p>
-						<div class=" mt-4">
-							<span class="text-3xl">&euro;40</span>
-							<span class="text-sm">/month</span>
-						</div>
-						<ul class="mt-6 space-y-3 text-left">
-							<li>✅ Transcribe audio</li>
-							<li>✅ Summarize transcription</li>
-							<li>✅ <strong>16</strong> audios per month</li>
-							<li>✅ Save transcriptions</li>
-							<li>✅ Save summaries</li>
-						</ul>
-					</div>
-					<a
-						href="/login"
-						class="mt-10 w-full rounded-lg border border-sky-600 bg-sky-600 px-5 py-2 text-lg font-bold text-white hover:border-sky-600 hover:bg-sky-600"
-						>Get started</a>
-				</div>
+
 				<div class="flex flex-col justify-between rounded-lg border bg-gray-50 p-5 text-center">
 					<div>
 						<h2 class="text-2xl font-semibold ">Enterprise</h2>
@@ -177,6 +158,7 @@
 							<li>✅ <strong>&infin;</strong> audios per month</li>
 							<li>✅ Save transcriptions</li>
 							<li>✅ Save summaries</li>
+							<li>✅ Encrypted data</li>
 						</ul>
 					</div>
 
@@ -222,7 +204,7 @@
 						type="email"
 						id="email"
 						name="email"
-						class="dark:shadow-sm-light block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-sky-500 focus:ring-sky-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 dark:focus:ring-sky-500"
+						class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-sky-500 focus:ring-sky-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-sky-500 dark:focus:ring-sky-500"
 						placeholder="name@mail.com"
 						required />
 				</div>
@@ -234,7 +216,7 @@
 						type="text"
 						id="subject"
 						name="subject"
-						class="dark:shadow-sm-light block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm text-gray-900 shadow-sm focus:border-sky-500 focus:ring-sky-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-sky-500 dark:focus:ring-sky-500"
+						class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm text-gray-900 shadow-sm focus:border-sky-500 focus:ring-sky-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:shadow-sm-light dark:focus:border-sky-500 dark:focus:ring-sky-500"
 						placeholder="Let us know how we can help you"
 						required />
 				</div>
@@ -256,7 +238,9 @@
 					>Send message</button>
 			</form>
 			{#if form?.success}
-				<p class="max-w-lg mx-auto mt-5 text-lg">Message has been sent successfuly, we'll contact you ASAP.</p>
+				<p class="mx-auto mt-5 max-w-lg text-lg">
+					Message has been sent successfuly, we'll contact you ASAP.
+				</p>
 			{/if}
 		</div>
 	</section>
