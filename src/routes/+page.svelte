@@ -60,9 +60,9 @@
 				<a href="#pricing" class="">Pricing</a>
 				<a href="#faq" class="">FAQ</a>
 				<a href="#contact" class="">Contact</a>
-				<a href="/login" class="">Login</a>
+				<a href="/login" class="" data-sveltekit-reload>Login</a>
 				<a href="/login" class="rounded-lg bg-sky-600 px-4 py-2 font-bold text-white"
-					>Get Started</a>
+				data-sveltekit-reload	>Get Started</a>
 			</div>
 		</div>
 	</div>
@@ -83,6 +83,7 @@
 					>Free demo
 				</a>
 				<a
+					data-sveltekit-reload
 					href="/login"
 					class="rounded-lg border border-sky-600 bg-sky-600 px-5 py-2 text-lg font-bold text-white hover:border-sky-600 hover:bg-sky-600"
 					>Start processing</a>
