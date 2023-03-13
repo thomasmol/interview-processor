@@ -26,8 +26,20 @@
 					menuOpen = !menuOpen;
 				}}>
 				<div
-					class="relative inline-flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-sky-900">
-					<span class="text-sm font-semibold text-gray-100">{letter}</span>
+					class="relative ring ring-gray-300 inline-flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-sky-900">
+
+					{#if $page.data.session?.user?.image}
+					<img
+						src={$page.data.session?.user?.image}
+						alt="avatar"
+						height="35"
+						width="35"
+						class="rounded-full" />
+				{:else}
+					<div class="p-3">
+						<span class="text-sm font-semibold text-gray-100">{letter}</span>
+					</div>
+				{/if}
 				</div>
 				<ChevronDown />
 			</button>
@@ -49,6 +61,7 @@
 						{/if}
 						<div class="truncate font-medium">{$page.data.session?.user?.email}</div>
 					</div>
+
 					<ul class="py-2 text-sm text-gray-700" aria-labelledby="avatarButton">
 						<li>
 							<a href="/account" class="block px-4 py-2 hover:bg-gray-100">Account settings</a>

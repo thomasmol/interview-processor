@@ -6,11 +6,18 @@
 <div class="container mt-10 flex gap-14">
 	<nav id="navbar" class="">
 		<div class="flex items-center gap-4">
-			<div class="rounded-full bg-gray-200 p-3 text-gray-500 ring ring-gray-300">
+			<div class="h-10 w-10 rounded-full bg-gray-200 text-gray-500 ring ring-gray-300">
 				{#if $page.data.session?.user?.image}
-					<img src={$page.data.session?.user?.image} alt="avatar" height="20" width="20" />
+					<img
+						src={$page.data.session?.user?.image}
+						alt="avatar"
+						height="50"
+						width="50"
+						class="rounded-full" />
 				{:else}
-					<Profile />
+					<div class="p-3">
+						<Profile />
+					</div>
 				{/if}
 			</div>
 			<div>

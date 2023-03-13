@@ -1,9 +1,14 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import DangerAlert from '$lib/components/DangerAlert.svelte';
+	import SuccessAlert from '$lib/components/SuccessAlert.svelte';
+	import type { ActionData } from './$types';
+
+	export let form: ActionData;
 </script>
 
 <h1 class="text-2xl font-bold">General settings</h1>
-<form action="#" class="mt-4">
+<form method="post" class="mt-4">
 	<div class="mb-4 grid gap-4 sm:mb-5 sm:grid-cols-2 sm:gap-6">
 		<div class="w-full">
 			<label for="name" class="mb-2 block text-sm font-medium text-gray-900">Your name</label>
@@ -45,3 +50,10 @@
 		</button>
 	</div>
 </form>
+<div class="mt-4">
+	{#if form?.success}
+		<SuccessAlert alert="Success!" message="Your account has been updated." />
+	{:else if form?.success}
+		<DangerAlert alert="Error!" message="Something went wrong. Please try again." />
+	{/if}
+</div>
