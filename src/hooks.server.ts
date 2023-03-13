@@ -18,7 +18,7 @@ const authorization = (async ({ event, resolve }) => {
 		}
 	} else {
 		if (session) {
-			throw redirect(303, '/audios');
+			throw redirect(303, '/overview');
 		}
 	}
 

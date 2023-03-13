@@ -16,9 +16,10 @@
 <nav class="border-b bg-gray-50">
 	<div class="container flex justify-between">
 		<div class="py-4">
-			<a href="/audios" class="font-semibold">🎙️ AudioDigest.app </a>
+			<a href="/overview" class="font-semibold">🎙️ AudioDigest.app </a>
 		</div>
 		<div class="relative float-right flex items-center gap-10">
+			<a href="/overview" class="text-sm font-bold hover:text-sky-700">Overview</a>
 			<a href="/audios" class="text-sm font-bold hover:text-sky-700">Audios</a>
 			<button
 				class="flex items-center gap-3"
@@ -76,7 +77,10 @@
 					<div class="py-1">
 						<a
 							href="/"
-							on:click|preventDefault={() => signOut()}
+							on:click|preventDefault={() => {
+								confirm('Are you sure you want to sign out?') &&
+								signOut()
+								}}
 							class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign out</a>
 					</div>
 				</div>

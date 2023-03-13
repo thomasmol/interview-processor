@@ -1,13 +1,13 @@
 <script>
-	import Navbar from '$lib/components/Navbar.svelte';
+	import AppNavbar from '$lib/components/AppNavbar.svelte';
 	import Footer from '$lib/sections/Footer.svelte';
 </script>
 
 <svelte:head>
 	<title>AudioDigest | App</title>
 </svelte:head>
-<Navbar />
-<main class="h-full bg-gray-50">
+<AppNavbar />
+<main class="bg-gray-50 flex-grow">
 	<slot />
 </main>
 <Footer />

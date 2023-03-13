@@ -3,11 +3,11 @@ import { EMAIL_SERVER } from '$env/static/private';
 import nodemailer from 'nodemailer';
 
 export const actions = {
-	default: async ({ request }) => {
+	default: async ({ request, locals }) => {
 		const data = await request.formData();
-		const email = (data.get('email') as string) || '';
-		const subject = (data.get('subject') as string) || '';
-		const message = (data.get('message') as string) || '';
+		const email = (await locals.getSession())?.user?.email || 'no@email.com';
+		const subject = (data.get('subject') as string) || 'Something went wrong with subject';
+		const message = (data.get('message') as string) || 'Something went wrong with message';
 
 		const transporter = nodemailer.createTransport(EMAIL_SERVER);
 

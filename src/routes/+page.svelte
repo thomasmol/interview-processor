@@ -1,4 +1,5 @@
 <script lang="ts">
+	import SuccessAlert from '$lib/components/SuccessAlert.svelte';
 	import Footer from '$lib/sections/Footer.svelte';
 	import type { PageData, ActionData } from './$types';
 
@@ -61,8 +62,10 @@
 				<a href="#faq" class="">FAQ</a>
 				<a href="#contact" class="">Contact</a>
 				<a href="/login" class="" data-sveltekit-reload>Login</a>
-				<a href="/login" class="rounded-lg bg-sky-600 px-4 py-2 font-bold text-white"
-				data-sveltekit-reload	>Get Started</a>
+				<a
+					href="/login"
+					class="rounded-lg bg-sky-600 px-4 py-2 font-bold text-white"
+					data-sveltekit-reload>Get Started</a>
 			</div>
 		</div>
 	</div>
@@ -197,7 +200,9 @@
 					Business plan? Let us know.
 				</h2>
 			</header>
-			<form method="post" class="mx-auto mt-14 max-w-xl space-y-8 rounded-lg border p-5 shadow-sm">
+			<form
+				method="post"
+				class="mx-auto mt-14 max-w-xl space-y-8 rounded-lg border bg-white p-5 shadow-sm">
 				<div>
 					<label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300"
 						>Your email</label>
@@ -239,9 +244,11 @@
 					>Send message</button>
 			</form>
 			{#if form?.success}
-				<p class="mx-auto mt-5 max-w-lg text-lg">
-					Message has been sent successfuly, we'll contact you ASAP.
-				</p>
+				<div class="mt-4">
+					<SuccessAlert
+						alert="Message has been sent successfuly."
+						message="We'll contact you ASAP." />
+				</div>
 			{/if}
 		</div>
 	</section>
